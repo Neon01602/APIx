@@ -2,9 +2,12 @@
 APIx Data Cleaning Unit Tests
 SIH 2026 PS 26056
 """
+import sys as _sys, os as _os
+_sys.path.insert(0, _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "api"))
+
 
 import unittest
-from data_cleaning import (
+from _lib.data_cleaning import (
     deduplicate_records,
     clean_outliers,
     separate_components,
