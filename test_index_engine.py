@@ -2,9 +2,12 @@
 Unit Tests for APIx Index Engine (Laspeyres-Weighted Airfare Index & Intelligence Layer)
 SIH 2026 PS 26056
 """
+import sys as _sys, os as _os
+_sys.path.insert(0, _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "api"))
+
 
 import unittest
-from index_engine import (
+from _lib.index_engine import (
     DGCA_RAW_WEIGHTS,
     NORMALIZED_WEIGHTS,
     calculate_laspeyres_index,
@@ -13,7 +16,7 @@ from index_engine import (
     calculate_statistical_forecast,
     APIxEngine,
 )
-from database import init_db, get_all_fares, get_event_tags
+from _lib.database import init_db, get_all_fares, get_event_tags
 
 
 class TestAPIxIndexEngine(unittest.TestCase):
