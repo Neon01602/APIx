@@ -19,10 +19,15 @@ from fastapi import FastAPI, HTTPException, Header, Query, Depends, status
 from fastapi.middleware.cors import CORSMiddleware
 from typing import List, Dict, Any, Optional
 import os
+import sys
 
-from database import init_db, get_all_fares, get_event_tags, append_fare_records
-from index_engine import APIxEngine, DGCA_RAW_WEIGHTS, NORMALIZED_WEIGHTS
-from apix_scraper import get_compliance_status_report, run_multiwindow_scrape_cycle
+# Ensure this file's own directory is importable regardless of the
+# working directory Vercel invokes the function from.
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+from _lib.database import init_db, get_all_fares, get_event_tags, append_fare_records
+from _lib.index_engine import APIxEngine, DGCA_RAW_WEIGHTS, NORMALIZED_WEIGHTS
+from _lib.apix_scraper import get_compliance_status_report, run_multiwindow_scrape_cycle
 
 app = FastAPI(
     title="APIx — Real-Time Airfare Price Index API",
