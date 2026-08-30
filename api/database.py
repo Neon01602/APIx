@@ -13,7 +13,9 @@ import os
 from typing import List, Dict, Any, Optional
 from data_cleaning import clean_fare_dataset, clean_outliers, deduplicate_records, separate_components
 
-DB_FILE = os.path.join(os.path.dirname(__file__), "fares.db")
+# Vercel's serverless filesystem is read-only except /tmp — DB must live there.
+# Falls back to a local path when not running on Vercel (e.g. local dev/tests).
+DB_FILE = "/tmp/fares.db" if os.environ.get("VERCEL") else os.path.join(os.path.dirname(__file__), "fares.db")
 CSV_FILE = os.path.join(os.path.dirname(__file__), "apix_pilot_fares.csv")
 
 INITIAL_EVENT_TAGS = [
