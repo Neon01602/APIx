@@ -3,12 +3,15 @@ APIx Command-Line Interface & Engine Dispatcher
 SIH 2026 PS 26056
 Safe CLI entry point to eliminate arbitrary shell execution injection.
 """
+import sys as _sys, os as _os
+_sys.path.insert(0, _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "api"))
+
 
 import sys
 import json
-from database import init_db, get_all_fares, get_event_tags, append_fare_records
-from index_engine import APIxEngine
-from apix_scraper import get_compliance_status_report, run_multiwindow_scrape_cycle
+from _lib.database import init_db, get_all_fares, get_event_tags, append_fare_records
+from _lib.index_engine import APIxEngine
+from _lib.apix_scraper import get_compliance_status_report, run_multiwindow_scrape_cycle
 
 
 def main():
