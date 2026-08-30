@@ -6,10 +6,13 @@ Validates the 30-day backtest series against official DGCA empirical market tren
 (e.g., the +20.5% average peak seasonal fare increase documented in DGCA annual reports).
 Computes Pearson Correlation (r), Directional Concordance, MAE, and RMSE.
 """
+import sys as _sys, os as _os
+_sys.path.insert(0, _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "api"))
+
 
 import math
-from database import init_db, get_all_fares, get_event_tags
-from index_engine import APIxEngine
+from _lib.database import init_db, get_all_fares, get_event_tags
+from _lib.index_engine import APIxEngine
 
 
 def run_backtest_validation():
