@@ -1,0 +1,6 @@
+{
+  "name": "APIx — Real-Time Airfare Price Index",
+  "description": "Real-Time Airfare Price Index prototype for SIH 2026 PS 26056 featuring Laspeyres-weighted route basket, DGCA traffic weights, and rule-based anomaly detection.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

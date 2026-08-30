@@ -1,0 +1,40 @@
+version: "3.8"
+
+services:
+  apix-backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: apix-app
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - DATABASE_URL=postgresql://apix_user:apix_secure_pass@postgres-db:5432/apix_db
+    depends_on:
+      postgres-db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  postgres-db:
+    image: postgres:16-alpine
+    container_name: apix-postgres
+    environment:
+      POSTGRES_DB: apix_db
+      POSTGRES_USER: apix_user
+      POSTGRES_PASSWORD: apix_secure_pass
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U apix_user -d apix_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+    driver: local
