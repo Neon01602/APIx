@@ -55,14 +55,14 @@ export const Header: React.FC<HeaderProps> = ({
           {/* OpenAPI Docs Link */}
           <a
             id="docs-link"
-            href="/docs"
+            href="/api/docs"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-[#1f6feb] bg-blue-50 hover:bg-blue-100 rounded-md border border-blue-200 transition-colors"
             title="OpenAPI / Swagger documentation for NSO, RBI, and Ministry integration"
           >
             <FileText className="w-3.5 h-3.5" />
-            <span>OpenAPI (/docs)</span>
+            <span>OpenAPI (/api/docs)</span>
           </a>
         </div>
       </div>
