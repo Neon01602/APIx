@@ -28,8 +28,9 @@ app = FastAPI(
     title="APIx — Real-Time Airfare Price Index API",
     description="Statistical Real-Time Airfare Price Index API for NSO / RBI / Ministry of Civil Aviation (SIH 2026 PS 26056). Powered by DGCA passenger traffic weighting, Laspeyres index methodology, and lightweight statistical forecasting.",
     version="1.0.0",
-    docs_url="/docs",
-    redoc_url="/redoc",
+    docs_url="/api/docs",
+    redoc_url="/api/redoc",
+    openapi_url="/api/openapi.json",
 )
 
 app.add_middleware(
