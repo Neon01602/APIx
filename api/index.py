@@ -15,11 +15,11 @@ Endpoints:
 - POST /api/scraper/trigger
 """
 
+import sys
 from fastapi import FastAPI, HTTPException, Header, Query, Depends, status
 from fastapi.middleware.cors import CORSMiddleware
 from typing import List, Dict, Any, Optional
 import os
-import sys
 
 # Ensure this file's own directory is importable regardless of the
 # working directory Vercel invokes the function from.
@@ -118,7 +118,7 @@ def get_route_forecast(origin: str, dest: str):
 
 @app.get("/api/routes", tags=["Route Basket"])
 def get_routes_basket():
-    """Returns the 6-route pilot basket with DGCA traffic-share percentages, normalized weights, and summary."""
+    """Returns the 10-route pilot basket with DGCA traffic-share percentages, normalized weights, and summary."""
     engine = get_engine()
     return engine.get_all_routes_summary()
 
