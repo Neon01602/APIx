@@ -25,6 +25,8 @@ export const RouteBreakdown: React.FC<RouteBreakdownProps> = ({ routes, onSelect
     HYD: "Hyderabad",
     PNQ: "Pune",
     CCU: "Kolkata",
+    AMD: "Ahmedabad",
+    MAA: "Chennai",
   };
 
   return (
@@ -35,13 +37,13 @@ export const RouteBreakdown: React.FC<RouteBreakdownProps> = ({ routes, onSelect
             Route Breakdown
           </h2>
           <p className="text-xs text-slate-500 mt-0.5">
-            DGCA benchmark routes in pilot basket with rolling anomaly detection and trend trajectory
+            10 DGCA benchmark routes in pilot basket with rolling anomaly detection and trend trajectory
           </p>
         </div>
       </div>
 
-      {/* Grid of 6 cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {/* Grid of 10 cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {routes.map((r) => {
           const originCity = cityNames[r.origin] || r.origin;
           const destCity = cityNames[r.destination] || r.destination;
@@ -145,6 +147,25 @@ export const RouteBreakdown: React.FC<RouteBreakdownProps> = ({ routes, onSelect
                   )}
                 </div>
               </div>
+
+              {/* 2-Component Fare Decomposition (Base vs Taxes/Fees) */}
+              {(() => {
+                const latestItem = r.history.length > 0 ? r.history[r.history.length - 1] : null;
+                const baseFareVal = latestItem?.base_fare ?? Math.round(r.latest_fare * 0.78);
+                const taxesVal = latestItem?.taxes_fees ?? Math.round(r.latest_fare - baseFareVal);
+                return (
+                  <div className="mt-3 pt-2.5 border-t border-slate-100 text-[10px]">
+                    <div className="flex items-center justify-between text-slate-500 mb-1">
+                      <span>Base: <strong className="text-slate-800">₹{baseFareVal.toLocaleString("en-IN")}</strong></span>
+                      <span>Taxes/Fees: <strong className="text-slate-800">₹{taxesVal.toLocaleString("en-IN")}</strong></span>
+                    </div>
+                    <div className="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden flex">
+                      <div style={{ width: "78%" }} className="bg-[#1f6feb]" title={`Base: ₹${baseFareVal.toLocaleString("en-IN")}`} />
+                      <div style={{ width: "22%" }} className="bg-slate-300" title={`Taxes/Fees: ₹${taxesVal.toLocaleString("en-IN")}`} />
+                    </div>
+                  </div>
+                );
+              })()}
             </div>
           );
         })}
