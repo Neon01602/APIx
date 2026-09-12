@@ -12,8 +12,9 @@ import csv
 import os
 from typing import List, Dict, Any, Optional
 from _lib.data_cleaning import clean_fare_dataset, clean_outliers, deduplicate_records, separate_components
+import tempfile
 
-DB_FILE = os.path.join(os.path.dirname(__file__), "fares.db")
+DB_FILE = os.path.join(tempfile.gettempdir(), "apix_fares.db")
 CSV_FILE = os.path.join(os.path.dirname(__file__), "apix_pilot_fares.csv")
 
 INITIAL_EVENT_TAGS = [
