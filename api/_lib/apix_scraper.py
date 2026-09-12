@@ -28,6 +28,10 @@ PILOT_ROUTES = [
     {"origin": "DEL", "destination": "HYD", "weight": 1.99},
     {"origin": "DEL", "destination": "PNQ", "weight": 1.77},
     {"origin": "DEL", "destination": "CCU", "weight": 1.67},
+    {"origin": "AMD", "destination": "DEL", "weight": 1.53},
+    {"origin": "MAA", "destination": "DEL", "weight": 1.48},
+    {"origin": "HYD", "destination": "BOM", "weight": 1.42},
+    {"origin": "BLR", "destination": "CCU", "weight": 1.41},
 ]
 
 # Source Compliance Registry
@@ -220,6 +224,10 @@ def run_multiwindow_scrape_cycle() -> List[Dict[str, Any]]:
         "DEL-HYD": 4120.0,
         "DEL-PNQ": 3890.0,
         "DEL-CCU": 4980.0,
+        "AMD-DEL": 3750.0,
+        "MAA-DEL": 5350.0,
+        "HYD-BOM": 3650.0,
+        "BLR-CCU": 5180.0,
     }
 
     advance_multipliers = {
@@ -273,7 +281,7 @@ def run_multiwindow_scrape_cycle() -> List[Dict[str, Any]]:
 
 def generate_pilot_dataset_csv(filename: str = "apix_pilot_fares.csv"):
     """
-    Generates a 30-day realistic backtest dataset across the 6 DGCA pilot routes
+    Generates a 30-day realistic backtest dataset across the 10 DGCA pilot routes
     with 5 advance purchase windows (T+1, T+7, T+15, T+30, T+45).
     Status is labeled honestly as 'SIMULATED_BACKTEST'.
     """
@@ -284,6 +292,10 @@ def generate_pilot_dataset_csv(filename: str = "apix_pilot_fares.csv"):
         "DEL-HYD": 4120.0,
         "DEL-PNQ": 3890.0,
         "DEL-CCU": 4980.0,
+        "AMD-DEL": 3750.0,
+        "MAA-DEL": 5350.0,
+        "HYD-BOM": 3650.0,
+        "BLR-CCU": 5180.0,
     }
 
     advance_multipliers = {
