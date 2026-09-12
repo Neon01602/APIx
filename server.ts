@@ -103,7 +103,7 @@ app.get("/api/forecast/:origin/:dest", async (req, res) => {
   }
 });
 
-// 5. 6-Route Basket Summary (Public Research Tier)
+// 5. 10-Route Basket Summary (Public Research Tier)
 app.get("/api/routes", async (req, res) => {
   try {
     const data = await runCli("routes");
@@ -256,7 +256,7 @@ const openApiSchema = {
     "/api/routes": {
       get: {
         tags: ["Route Basket"],
-        summary: "Get 6-route pilot basket with DGCA weights (Public Research Tier)",
+        summary: "Get 10-route pilot basket with DGCA weights (Public Research Tier)",
         responses: { "200": { description: "Route basket summary" } }
       }
     },
