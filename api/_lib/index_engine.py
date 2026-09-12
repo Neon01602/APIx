@@ -13,7 +13,7 @@ from typing import Dict, List, Tuple, Any, Optional
 import math
 import datetime
 
-# DGCA raw traffic-share percentages for the 6 pilot routes
+# DGCA raw traffic-share percentages for the 10 pilot routes (Sum = 20.73%)
 DGCA_RAW_WEIGHTS: Dict[str, float] = {
     "DEL-BOM": 4.14,
     "BLR-DEL": 2.83,
@@ -21,9 +21,13 @@ DGCA_RAW_WEIGHTS: Dict[str, float] = {
     "DEL-HYD": 1.99,
     "DEL-PNQ": 1.77,
     "DEL-CCU": 1.67,
+    "AMD-DEL": 1.53,
+    "MAA-DEL": 1.48,
+    "HYD-BOM": 1.42,
+    "BLR-CCU": 1.41,
 }
 
-# Normalize weights so they sum to 1.0 for the pilot basket
+# Normalize weights so they sum to 1.0 for the 10-route basket
 TOTAL_RAW_WEIGHT: float = sum(DGCA_RAW_WEIGHTS.values())
 NORMALIZED_WEIGHTS: Dict[str, float] = {
     route: weight / TOTAL_RAW_WEIGHT
@@ -430,7 +434,7 @@ class APIxEngine:
         }
 
     def get_all_routes_summary(self) -> List[Dict[str, Any]]:
-        """Return the 6-route basket with DGCA weights, latest fares, trend, and anomaly state."""
+        """Return the 10-route basket with DGCA weights, latest fares, trend, and anomaly state."""
         summaries = []
         for route, raw_wt in DGCA_RAW_WEIGHTS.items():
             origin, dest = route.split("-")
