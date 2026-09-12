@@ -18,7 +18,7 @@ export const Header: React.FC<HeaderProps> = ({
         {/* Left: APIx Official Logo (moved from right to left, text content removed) */}
         <div id="navbar-left-logo" className="flex items-center gap-3 py-1">
           <img
-            src="/apix_logo.png"
+            src="src/assets/images/apix_logo.png"
             alt="APIx Logo"
             className="h-10 sm:h-11 w-auto object-contain select-none"
             referrerPolicy="no-referrer"
