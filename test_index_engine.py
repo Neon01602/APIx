@@ -2,12 +2,9 @@
 Unit Tests for APIx Index Engine (Laspeyres-Weighted Airfare Index & Intelligence Layer)
 SIH 2026 PS 26056
 """
-import sys as _sys, os as _os
-_sys.path.insert(0, _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "api"))
-
 
 import unittest
-from _lib.index_engine import (
+from index_engine import (
     DGCA_RAW_WEIGHTS,
     NORMALIZED_WEIGHTS,
     calculate_laspeyres_index,
@@ -16,13 +13,13 @@ from _lib.index_engine import (
     calculate_statistical_forecast,
     APIxEngine,
 )
-from _lib.database import init_db, get_all_fares, get_event_tags
+from database import init_db, get_all_fares, get_event_tags
 
 
 class TestAPIxIndexEngine(unittest.TestCase):
     def test_weights_normalization(self):
-        """Test that the 6 DGCA route weights normalize to 1.0."""
-        self.assertEqual(len(NORMALIZED_WEIGHTS), 6)
+        """Test that the 10 DGCA route weights normalize to 1.0."""
+        self.assertEqual(len(NORMALIZED_WEIGHTS), 10)
         total_normalized = sum(NORMALIZED_WEIGHTS.values())
         self.assertAlmostEqual(total_normalized, 1.0, places=5)
 
@@ -41,6 +38,10 @@ class TestAPIxIndexEngine(unittest.TestCase):
             "DEL-HYD": 4120.0,
             "DEL-PNQ": 3890.0,
             "DEL-CCU": 4980.0,
+            "AMD-DEL": 3750.0,
+            "MAA-DEL": 5350.0,
+            "HYD-BOM": 3650.0,
+            "BLR-CCU": 5180.0,
         }
         current_fares = base_fares.copy()
         index_val = calculate_laspeyres_index(current_fares, base_fares, NORMALIZED_WEIGHTS)
@@ -55,6 +56,10 @@ class TestAPIxIndexEngine(unittest.TestCase):
             "DEL-HYD": 4000.0,
             "DEL-PNQ": 3500.0,
             "DEL-CCU": 4500.0,
+            "AMD-DEL": 3500.0,
+            "MAA-DEL": 5000.0,
+            "HYD-BOM": 3500.0,
+            "BLR-CCU": 5000.0,
         }
         current_fares = {k: v * 1.20 for k, v in base_fares.items()}
         index_val = calculate_laspeyres_index(current_fares, base_fares, NORMALIZED_WEIGHTS)
@@ -139,7 +144,7 @@ class TestAPIxIndexEngine(unittest.TestCase):
 
         # Test route summaries
         summaries = engine.get_all_routes_summary()
-        self.assertEqual(len(summaries), 6)
+        self.assertEqual(len(summaries), 10)
 
         # Test active alerts
         alerts = engine.get_active_alerts()
