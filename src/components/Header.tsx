@@ -16,13 +16,24 @@ export const Header: React.FC<HeaderProps> = ({
     <header id="apix-header" className="w-full bg-white border-b border-slate-200 sticky top-0 z-30 shadow-xs">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
         {/* Left: APIx Official Logo (moved from right to left, text content removed) */}
-        <div id="navbar-left-logo" className="flex items-center py-1">
+        <div id="navbar-left-logo" className="flex items-center gap-3 py-1">
           <img
             src="/apix_logo.png"
-            alt="APIx Real-Time Airfare Price Index"
-            className="h-11 sm:h-12 w-auto object-contain select-none"
+            alt="APIx Logo"
+            className="h-10 sm:h-11 w-auto object-contain select-none"
             referrerPolicy="no-referrer"
           />
+          <div className="flex flex-col justify-center">
+            <div className="flex items-center gap-2">
+              <span className="text-xl sm:text-2xl font-black tracking-tight text-slate-900 leading-none">
+                API<span className="text-[#1f6feb]">x</span>
+              </span>
+              
+            </div>
+            <span className="text-[11px] sm:text-xs text-slate-500 font-medium tracking-tight mt-0.5 hidden xs:inline-block">
+              Real-Time Airfare Price Index
+            </span>
+          </div>
         </div>
 
         {/* Right: Action Modals, Flight Regulatory Compliance, and Docs */}
