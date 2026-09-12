@@ -117,6 +117,10 @@ def init_db(force_reseed: bool = False):
         if force_reseed and fare_count > 0:
             cursor.execute("DELETE FROM fares")
 
+        if force_reseed or not os.path.exists(CSV_FILE):
+            from _lib.apix_scraper import generate_pilot_dataset_csv
+            generate_pilot_dataset_csv(CSV_FILE)
+
         if os.path.exists(CSV_FILE):
             raw_records = []
             with open(CSV_FILE, mode="r", encoding="utf-8") as f:
