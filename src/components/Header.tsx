@@ -1,68 +1,78 @@
 import React from "react";
-import { FileText, ShieldCheck, KeyRound } from "lucide-react";
+import { ShieldCheck, KeyRound, FileText, Compass } from "lucide-react";
 
 interface HeaderProps {
   onOpenCompliance?: () => void;
   onOpenInstitutional?: () => void;
+  onOpenFlightCompliance?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
   onOpenCompliance,
   onOpenInstitutional,
+  onOpenFlightCompliance,
 }) => {
   return (
     <header id="apix-header" className="w-full bg-white border-b border-slate-200 sticky top-0 z-30 shadow-xs">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        {/* Left: APIx Wordmark + Tagline */}
-        <div className="flex items-center space-x-3">
-          <div className="flex items-baseline space-x-2">
-            <span className="text-2xl font-bold tracking-tight text-slate-900">
-              API<span className="text-[#1f6feb]">x</span>
-            </span>
-            <span className="text-sm font-medium text-slate-500 border-l border-slate-300 pl-3">
-              Real-Time Airfare Price Index
-            </span>
-          </div>
-          <span className="hidden sm:inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-slate-100 text-slate-600 border border-slate-200">
-            SIH 2026 PS 26056
-          </span>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
+        {/* Left: APIx Official Logo (moved from right to left, text content removed) */}
+        <div id="navbar-left-logo" className="flex items-center py-1">
+          <img
+            src="/apix_logo.png"
+            alt="APIx Real-Time Airfare Price Index"
+            className="h-11 sm:h-12 w-auto object-contain select-none"
+            referrerPolicy="no-referrer"
+          />
         </div>
 
-        {/* Right: Actions & Modals */}
-        <div className="flex items-center space-x-2.5">
+        {/* Right: Action Modals, Flight Regulatory Compliance, and Docs */}
+        <div id="navbar-right-actions" className="flex items-center space-x-2.5 sm:space-x-3">
+          {/* Flight Regulatory Audit Badge (CAR Section 3 & Rule 135) */}
+          {onOpenFlightCompliance && (
+            <button
+              id="flight-compliance-btn"
+              onClick={onOpenFlightCompliance}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 rounded-lg border border-emerald-200 transition-colors"
+              title="View DGCA CAR Section 3 & Rule 135 Flight Tariff Compliance Audit"
+            >
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+              <span>CAR Sec-3 Compliant</span>
+            </button>
+          )}
+
           {/* Source Compliance Registry */}
           <button
             id="compliance-btn"
             onClick={onOpenCompliance}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-slate-700 bg-slate-50 hover:bg-slate-100 rounded-md border border-slate-200 transition-colors"
-            title="View robots.txt & scraping compliance registry"
+            className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium text-slate-700 bg-slate-50 hover:bg-slate-100 rounded-lg border border-slate-200 transition-colors"
+            title="View robots.txt & ethical crawling compliance registry"
           >
-            <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-            <span className="hidden md:inline">Source Compliance</span>
+            <Compass className="w-3.5 h-3.5 text-slate-500" />
+            <span>Robots.txt</span>
           </button>
 
           {/* Institutional NSO/RBI Feed */}
           <button
             id="institutional-btn"
             onClick={onOpenInstitutional}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-slate-700 bg-slate-50 hover:bg-slate-100 rounded-md border border-slate-200 transition-colors"
+            className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium text-slate-700 bg-slate-50 hover:bg-slate-100 rounded-lg border border-slate-200 transition-colors"
             title="Institutional role-based access for NSO / RBI micro-data"
           >
             <KeyRound className="w-3.5 h-3.5 text-[#1f6feb]" />
-            <span className="hidden md:inline">NSO / RBI Access</span>
+            <span>NSO / RBI</span>
           </button>
 
           {/* OpenAPI Docs Link */}
           <a
             id="docs-link"
-            href="/api/docs"
+            href="/docs"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-[#1f6feb] bg-blue-50 hover:bg-blue-100 rounded-md border border-blue-200 transition-colors"
+            className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium text-[#1f6feb] bg-blue-50 hover:bg-blue-100 rounded-lg border border-blue-200 transition-colors"
             title="OpenAPI / Swagger documentation for NSO, RBI, and Ministry integration"
           >
             <FileText className="w-3.5 h-3.5" />
-            <span>OpenAPI (/api/docs)</span>
+            <span>Docs</span>
           </a>
         </div>
       </div>
