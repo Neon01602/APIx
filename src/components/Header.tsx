@@ -65,7 +65,7 @@ export const Header: React.FC<HeaderProps> = ({
           {/* OpenAPI Docs Link */}
           <a
             id="docs-link"
-            href="/docs"
+            href="/api/docs"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium text-[#1f6feb] bg-blue-50 hover:bg-blue-100 rounded-lg border border-blue-200 transition-colors"
