@@ -124,7 +124,7 @@ export const IndexOverview: React.FC<IndexOverviewProps> = ({ initialData = [] }
             </span>
           </div>
           <p className="text-xs text-slate-500 mt-1">
-            Aggregated airfare price index across 6 high-density DGCA routes. Base period P₀ = 100.0.
+            Aggregated airfare price index across 10 high-density DGCA routes. Base period P₀ = 100.0.
           </p>
 
           {/* Aggregation Frequency Toggle */}
