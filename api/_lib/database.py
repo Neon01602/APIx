@@ -16,7 +16,11 @@ from _lib.data_cleaning import clean_fare_dataset, clean_outliers, deduplicate_r
 # Vercel's serverless filesystem is read-only except /tmp — DB must live there.
 # Falls back to a local path when not running on Vercel (e.g. local dev/tests).
 DB_FILE = "/tmp/fares.db" if os.environ.get("VERCEL") else os.path.join(os.path.dirname(__file__), "fares.db")
-CSV_FILE = os.path.join(os.path.dirname(__file__), "apix_pilot_fares.csv")
+# Same Vercel read-only-filesystem constraint applies to the CSV: if it needs
+# to be generated at runtime, it must be written to /tmp, not the bundle dir.
+CSV_FILE = "/tmp/apix_pilot_fares.csv" if os.environ.get("VERCEL") else os.path.join(os.path.dirname(__file__), "apix_pilot_fares.csv")
+# Bundled, pre-generated fallback shipped in the repo (read-only, always present)
+BUNDLED_CSV_FILE = os.path.join(os.path.dirname(__file__), "apix_pilot_fares.csv")
 
 INITIAL_EVENT_TAGS = [
     {
@@ -117,13 +121,20 @@ def init_db(force_reseed: bool = False):
         if force_reseed and fare_count > 0:
             cursor.execute("DELETE FROM fares")
 
-        if force_reseed or not os.path.exists(CSV_FILE):
+        # Prefer the bundled, pre-generated CSV shipped in the repo (always readable,
+        # no write required). Only attempt to generate one at runtime (writing to
+        # /tmp) if the bundled file is genuinely missing.
+        source_csv = CSV_FILE
+        if os.path.exists(BUNDLED_CSV_FILE):
+            source_csv = BUNDLED_CSV_FILE
+        elif force_reseed or not os.path.exists(CSV_FILE):
             from _lib.apix_scraper import generate_pilot_dataset_csv
             generate_pilot_dataset_csv(CSV_FILE)
+            source_csv = CSV_FILE
 
-        if os.path.exists(CSV_FILE):
+        if os.path.exists(source_csv):
             raw_records = []
-            with open(CSV_FILE, mode="r", encoding="utf-8") as f:
+            with open(source_csv, mode="r", encoding="utf-8") as f:
                 reader = csv.DictReader(f)
                 for row in reader:
                     raw_records.append(row)
